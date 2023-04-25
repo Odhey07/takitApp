@@ -51,6 +51,15 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  fonts:
+    - family: intro
+      fonts:
+        - asset: lib/assets/font/intro.otf
+
+    - family : cursive
+      fonts :
+        - asset: lib/assets/font/CursiveSerif-Book.ttf
+
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/assets/images/Logo_Takit.png
