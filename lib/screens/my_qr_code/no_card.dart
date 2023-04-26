@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tak_it_app/screens/my_qr_code/generate_qr.dart';
+import 'package:tak_it_app/screens/my_qr_code/qr_generated.dart';
 
+import '../../controllers/cubit/takit_cubit.dart';
 import '../../widgets/component.dart';
 
 class NoCardScreen extends StatefulWidget {
@@ -13,6 +16,9 @@ class NoCardScreen extends StatefulWidget {
 class _NoCardScreenState extends State<NoCardScreen> {
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<TakitCubit, TakitState>(
+  listener: (context, state) {},
+  builder: (context, state) {
     return Container(
       decoration: arrierePlan(),
       child: Center(
@@ -54,6 +60,8 @@ class _NoCardScreenState extends State<NoCardScreen> {
         ),
       ),
     );
+  },
+);
     ;
   }
 }

@@ -12,3 +12,5 @@ class CreateTakitDatabaseState extends TakitState {}
 class InsertDataToCarteState extends TakitState {}
 
 class GetDataFromDatabaseState extends TakitState {}
+
+class CarteTableIsEmptyState extends TakitState {}

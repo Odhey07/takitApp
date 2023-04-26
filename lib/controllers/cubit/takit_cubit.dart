@@ -21,7 +21,7 @@ class TakitCubit extends Cubit<TakitState> {
   Database? database;
 
   void createDatabase() {
-    openDatabase('takitdata', //nom du fichier de la db
+    openDatabase('tkitdb', //nom du fichier de la db
         version: 1, onCreate: (database, version) {
       database.execute(
           //création de la table Carte
@@ -37,6 +37,7 @@ class TakitCubit extends Cubit<TakitState> {
           //creation de la table client
           ).then((value) {
         print("Table carte créée");
+
       }).catchError((error) {
         print('erreur lors de la création de la table carte');
       });

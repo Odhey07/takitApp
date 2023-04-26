@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:tak_it_app/widgets/component.dart';
 
 class test_screen extends StatefulWidget {
@@ -17,6 +18,7 @@ class _test_screenState extends State<test_screen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            PrettyQr(data: 'test du Qr code', size: 150),
             TextFormField(
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.add),
