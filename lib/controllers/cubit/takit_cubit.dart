@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:tak_it_app/screens/my_contacts/my_contacts_screen.dart';
 import 'package:tak_it_app/screens/my_qr_code/my_qr_screen.dart';
@@ -21,7 +22,7 @@ class TakitCubit extends Cubit<TakitState> {
   Database? database;
 
   void createDatabase() {
-    openDatabase('tkitdb', //nom du fichier de la db
+    openDatabase('tkitb', //nom du fichier de la db
         version: 1, onCreate: (database, version) {
       database.execute(
           //création de la table Carte
@@ -65,6 +66,7 @@ class TakitCubit extends Cubit<TakitState> {
     });
   }
 
+
   //fonction pour inserer une carte
 
   void insertDataToCarte({
@@ -91,10 +93,37 @@ class TakitCubit extends Cubit<TakitState> {
     });
   }
 
+
+//Ajouter un Contact
+  void insertDataToContact({
+    required nom,
+    required prenom,
+    required mail,
+    required fonction,
+    required numero,
+  }) {
+    database?.transaction((txn) async {
+      txn
+          .rawInsert(
+        //insertion des données dans la table carte
+          'INSERT INTO contact'
+              '(nom, prenom, mail, fonction, numero)'
+              'VALUES ("$nom", "$prenom", "$mail", "$fonction", "$numero" )')
+          .then((value) {
+        print("$value bien enregistré");
+        getDataFromContact(database);
+        emit(InsertDataToContactState());
+        emit(InsertingDataToContacSuccestState());
+      }).catchError((error) {
+        print("echec d'enregistrement des données de les contacts");
+      });
+    });
+  }
+
+
   //Fonction pour recuperer des données de la carte dans la db
 
   List cartes = [];
-
   void getDataFromCarte(database) {
     cartes = [];
     database!.rawQuery('SELECT * FROM carte').then((value) {
@@ -102,17 +131,26 @@ class TakitCubit extends Cubit<TakitState> {
         cartes.add(element);
       });
       print('les données ont bien été recuperé la carte $value');
-      emit(GetDataFromDatabaseState());
+      emit(GetDataFromTableCarteState());
     }).catchError((error) {
       print("echec de recuperation des données de la carte");
     });
   }
 
 
-
-
-
-
+  List contacts = [];
+  void getDataFromContact(database) {
+    contacts = [];
+    database!.rawQuery('SELECT * FROM carte').then((value) {
+      value.forEach((element) {
+        contacts.add(element);
+      });
+      print('les données ont bien été recuperé de contact $value');
+      emit(GetDataFromTableContactState());
+    }).catchError((error) {
+      print("echec de recuperation des données de la carte");
+    });
+  }
 
 
 
@@ -132,4 +170,20 @@ class TakitCubit extends Cubit<TakitState> {
     currentIndex = index!;
     emit(BottomNavState());
   }
+
+
+
+  Barcode ? result;
+  void changeQrValue(Barcode? event) {
+    result = event;
+    emit(QrCodeState());
+  }
+
+
+
+
 }
+
+
+
+

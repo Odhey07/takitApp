@@ -21,17 +21,30 @@ class _QrGeneratedState extends State<QrGenerated> {
         var cubit = TakitCubit.get(context);
         return Scaffold(
           body: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  PrettyQr(data: cubit.cartes[(cubit.cartes.length-1)]['id'].toString(), size: 200, ),
-                  SizedBox(height: 25,),
-                  MaterialButton(onPressed: (){}, child: customsText('Modifier ma carte', Colors.white, FontWeight.bold, 'intro', 17),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 250,
+                ),
+                PrettyQr(
+                  data:
+                      cubit.cartes[0]['id'].toString(),
+                  size: 200,
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                MaterialButton(
+                  onPressed: () {},
+                  child: customsText('Modifier ma carte', Colors.white,
+                      FontWeight.bold, 'intro', 17),
                   height: 50,
-                  color: Colors.lightBlue,)
-                ],
-              ),
+                  color: Colors.lightBlue,
+                )
+              ],
             ),
+          ),
         );
       },
     );

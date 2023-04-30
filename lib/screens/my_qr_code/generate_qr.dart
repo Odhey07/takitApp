@@ -24,13 +24,7 @@ class _GenerateQrScreenState extends State<GenerateQrScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<TakitCubit, TakitState>(
-      listener: (context, state) {
-        if(TakitCubit.get(context).cartes!.isEmpty){
-          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
-            return QrGenerated();
-          }));
-        }
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         var cubit = TakitCubit.get(context);
         return Scaffold(
